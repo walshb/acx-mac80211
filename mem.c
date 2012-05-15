@@ -2339,7 +2339,13 @@ STATick int __devinit acxmem_probe(struct platform_device *pdev)
 	 */
 	ieee->wiphy->interface_modes = BIT(NL80211_IFTYPE_STATION)
 					| BIT(NL80211_IFTYPE_ADHOC);
+
+	#if CONFIG_ACX_MAC80211_VERSION < KERNEL_VERSION(3, 4, 0)
 	ieee->queues = 1;
+	#else
+	ieee->queues = 4;
+	#endif
+
 	// OW TODO Check if RTS/CTS threshold can be included here
 
 	/* TODO: although in the original driver the maximum value was

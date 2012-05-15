@@ -1333,7 +1333,13 @@ acxpci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 			BIT(NL80211_IFTYPE_STATION)	|
 			BIT(NL80211_IFTYPE_ADHOC) |
 			BIT(NL80211_IFTYPE_AP);
+
+	#if CONFIG_ACX_MAC80211_VERSION < KERNEL_VERSION(3, 4, 0)
 	ieee->queues = 1;
+	#else
+	ieee->queues = 4;
+	#endif
+
 	// OW TODO Check if RTS/CTS threshold can be included here
 
 	/* TODO: although in the original driver the maximum value was
@@ -2003,7 +2009,12 @@ static __devinit int vlynq_probe(struct vlynq_device *vdev,
 			BIT(NL80211_IFTYPE_STATION)	|
 			BIT(NL80211_IFTYPE_ADHOC) |
 			BIT(NL80211_IFTYPE_AP);
+
+	#if CONFIG_ACX_MAC80211_VERSION < KERNEL_VERSION(3, 4, 0)
 	ieee->queues = 1;
+	#else
+	ieee->queues = 4;
+	#endif
 
 	// We base signal quality on winlevel approach of previous driver
 	// TODO OW 20100615 This should into a common init code
