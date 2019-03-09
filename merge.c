@@ -1458,7 +1458,7 @@ static int acx_wait_cmd_status(acx_device_t *adev, unsigned cmd,
 		/* the card doesn't get idle, we're in trouble */
 		pr_acx("%s: cmd_status is not IDLE: 0x%04X!=0\n",
 			devname, cmd_status);
-		return -1;
+		return cmd_status;
 	}
         else if (counter < 190)
 		/* if waited > 10ms ... */
@@ -1505,7 +1505,6 @@ int _acx_issue_cmd_timeo_debug(acx_device_t *adev, unsigned cmd,
 	const char *devname;
 	u16 irqtype;
 	u16 cmd_status = -1;
-	int rc;
 
 	acxmem_lock_flags;
 
@@ -1532,9 +1531,9 @@ int _acx_issue_cmd_timeo_debug(acx_device_t *adev, unsigned cmd,
 	}
 
 	/* wait for firmware to become idle for our command submission */
-	rc = acx_wait_cmd_status(adev, cmd, buffer, buflen,
+	cmd_status = acx_wait_cmd_status(adev, cmd, buffer, buflen,
 			cmd_timeout, cmdstr, devname);
-	if (rc)
+	if (cmd_status)
 		goto bad;
 
 	/* now write the parameters of the command if needed */
