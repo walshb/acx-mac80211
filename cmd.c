@@ -86,7 +86,10 @@ const char *acx_cmd_status_str(unsigned int state)
 		"RX in progress",
 		"Invalid parameter",
 		"Scan in progress",
-		"Failed"
+		"Failed",
+		"Station table full",
+		"Radio error",
+		"Wrong nesting"
 	};
 	return state < ARRAY_SIZE(cmd_error_strings) ?
 	    cmd_error_strings[state] : "?";
