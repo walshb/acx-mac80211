@@ -995,7 +995,7 @@ struct acx111_ie_memoryconfig_tx_queue {
 typedef struct acx111_ie_memoryconfig {
 	u16	type;
 	u16	len;
-	u16	no_of_stations;
+	u16	num_stations;
 	u16	memory_block_size;
 	u8	tx_rx_memory_block_allocation;
 	u8	count_rx_queues;

@@ -156,9 +156,14 @@ MODULE_PARM_DESC(debug, "Enable watchdog");
 /* will add __read_mostly later */
 unsigned int acx_debug = ACX_DEFAULT_MSG;
 
+unsigned int acx_num_stations = 1;
+
 /* parameter is 'debug', corresponding var is acx_debug */
 module_param_named(debug, acx_debug, uint, 0644);
 MODULE_PARM_DESC(debug, "Debug level mask (see L_xxx constants)");
+
+module_param_named(num_stations, acx_num_stations, uint, 0644);
+MODULE_PARM_DESC(num_stations, "Number of stations (need several for an access point)");
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 36)
 /* implement /sys/module/acx_mac80211/parameters/debugflags */

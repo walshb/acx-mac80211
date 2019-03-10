@@ -197,6 +197,8 @@ static int acx111_create_dma_regions(acx_device_t *adev)
 	u32 rx_queue_start;
 	u32 tx_queue_start[ACX111_NUM_HW_TX_QUEUES];
 
+	pr_info("setting up DMA regions with num_stations=%d\n", acx_num_stations);
+
 	adev->num_hw_tx_queues = ACX111_NUM_HW_TX_QUEUES;
 
 	/* Calculate memory positions and queue sizes */
@@ -209,8 +211,8 @@ static int acx111_create_dma_regions(acx_device_t *adev)
 
 	memset(&memconf, 0, sizeof(memconf));
 	/* the number of STAs (STA contexts) to support
-	 ** NB: was set to 1 and everything seemed to work nevertheless... */
-	memconf.no_of_stations = 1; //cpu_to_le16(ARRAY_SIZE(adev->sta_list));
+	 * 1 works fine for a station, but for an access point we need more */
+	memconf.num_stations = cpu_to_le16(acx_num_stations);
 
 	/* specify the memory block size. Default is 256 */
 	memconf.memory_block_size = cpu_to_le16(adev->memblocksize);

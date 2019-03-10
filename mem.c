@@ -1966,7 +1966,7 @@ int acx111pci_ioctl_info(struct ieee80211_hw *hw,
 		"Tx Queue 1 Count Descriptors: %X\n"
 		"Tx Queue 1 Attributes: %X\n",
 		  memconf.len, (int) sizeof(memconf),
-			memconf.no_of_stations,
+			memconf.num_stations,
 			memconf.memory_block_size,
 			memconf.tx_rx_memory_block_allocation,
 			memconf.count_rx_queues, memconf.count_tx_queues,
